@@ -1,0 +1,7 @@
+{
+  "name": "mataWargaIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
