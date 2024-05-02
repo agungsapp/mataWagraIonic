@@ -11,55 +11,53 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  regForm: FormGroup;
+  // loginForm: FormGroup;
 
-  // username: string = '';
-  // password: string = '';
+  loginForm = this.formBuilder.group({
+    username: ['', [Validators.required]],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
+      ],
+    ],
+  });
 
   constructor(
     private toastController: ToastController,
     private alertController: AlertController,
     private authService: AuthenticationService,
     private router: Router,
-    public formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     public loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {
-    this.regForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-        ],
-      ],
-    });
-  }
+  ngOnInit() {}
 
-  get errorControl() {
-    return this.regForm?.controls;
-  }
+  async onLogin(): Promise<boolean> {
+    // ... content of your onLogin function
 
-  async onLogin() {
-    const loading = await this.loadingCtrl.create();
-    await loading.present();
+    const auth = await this.authService.loginUser(
+      this.loginForm.value.username,
+      this.loginForm.value.password
+    );
 
-    if (this.regForm?.valid) {
-      // const user = await this.authService.loginUser(username, password);
+    if (auth) {
+      return this.router.navigate(['/home']); // Success
+    } else {
+      await this.presentToast('Password atau username salah');
+      return false; // Failure
     }
+  }
 
-    // const success = await this.authService.loginUser(
-    //   this.username,
-    //   this.password
-    // );
-
-    // if (success) {
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   // Display an error message
-    //   console.error('Invalid credentials');
-    // }
+  // Fungsi untuk menampilkan toast
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Durasi tampilan toast dalam milidetik
+      position: 'bottom', // Posisi toast
+    });
+    toast.present(); // Tampilkan toast
   }
 }

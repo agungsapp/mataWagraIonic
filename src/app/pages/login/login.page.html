@@ -19,7 +19,7 @@
     <p class="subTitle">Silahkan Login untuk melaporkan</p>
   </div>
 
-  <form [formGroup]="regForm" novalidate>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <div class="ion-padding">
       <ion-item>
         <ion-input
@@ -29,15 +29,6 @@
         ></ion-input>
         <ion-icon name="person-outline"></ion-icon>
       </ion-item>
-      <!-- invalid feedback -->
-      <div
-        *ngIf="this.regForm.controls?.['username'].touched && this.regForm.controls?.['username'].invalid"
-      >
-        <!-- console.log(this.errorControl); -->
-        <ion-text class="invalid-feedback">
-          Username tidak boleh kosong!
-        </ion-text>
-      </div>
 
       <ion-item>
         <ion-input
@@ -47,14 +38,6 @@
         ></ion-input>
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
-      <!-- invalid feedback password -->
-      <div
-        *ngIf="this.regForm.controls?.['password'].touched && this.regForm.controls?.['password'].invalid"
-      >
-        <ion-text class="invalid-feedback">
-          Password tidak boleh kosong!
-        </ion-text>
-      </div>
 
       <div class="link-auth-wrapper">
         <p>
@@ -65,9 +48,11 @@
     </div>
 
     <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 10px">
-      <ion-fab-button type="submit">
-        <ion-icon name="chevron-forward"> </ion-icon>
-      </ion-fab-button>
+      <button type="submit" style="background-color: rgba(0, 0, 0, 0)">
+        <ion-fab-button>
+          <ion-icon name="chevron-forward"> </ion-icon>
+        </ion-fab-button>
+      </button>
     </ion-fab>
   </form>
 </ion-content>
