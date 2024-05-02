@@ -1,0 +1,42 @@
+.input {
+  font-size: 300;
+}
+
+ion-item {
+  --background: #f1f1f1;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.header {
+  margin-top: 100px;
+  margin-bottom: 80px;
+  text-align: center;
+  .title {
+    font-size: 2rem;
+  }
+  .subTitle {
+    font-size: 0.9rem;
+    color: gray;
+  }
+}
+
+.link-auth-wrapper {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  .link-auth {
+    color: rgb(46, 46, 207);
+    text-decoration: none;
+  }
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
